@@ -1,19 +1,13 @@
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require('@playwright/test');
 
-const config = require("../../../config");
-const common = require("../../../common");
+const config = require('../../../config');
+const common = require('../../../common');
 
 test.beforeEach(common.launchPortal);
 
-test.describe("E2E test", () => {
-  test("should login, create case and run different test cases for Query", async ({
-    page,
-  }) => {
-    await common.login(
-      config.config.apps.digv2.user.username,
-      config.config.apps.digv2.user.password,
-      page,
-    );
+test.describe('E2E test', () => {
+  test('should login, create case and run different test cases for Query', async ({ page }) => {
+    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -24,24 +18,18 @@ test.describe("E2E test", () => {
     await expect(worklist).toBeVisible();
 
     /** Creating a Complex Fields case-type */
-    const complexFieldsCase = page.locator(
-      'div[role="button"]:has-text("Complex Fields")',
-    );
+    const complexFieldsCase = page.locator('div[role="button"]:has-text("Complex Fields")');
     await complexFieldsCase.click();
 
     /** Selecting Query from the Category dropdown */
-    const selectedCategory = page.locator(
-      'div[data-test-id="76729937a5eb6b0fd88c42581161facd"]',
-    );
+    const selectedCategory = page.locator('div[data-test-id="76729937a5eb6b0fd88c42581161facd"]');
     await selectedCategory.click();
     await page.locator('li:has-text("Query")').click();
 
     await page.locator('button:has-text("submit")').click();
 
     /** selecting SingleRecord option from dropdown  */
-    const selectedOption = await page.locator(
-      'div[data-test-id="365ab066d5dd67171317bc3fc755245a"]',
-    );
+    const selectedOption = await page.locator('div[data-test-id="365ab066d5dd67171317bc3fc755245a"]');
     await selectedOption.click();
     await page.locator('li:has-text("SingleRecord")').click();
 
@@ -59,9 +47,7 @@ test.describe("E2E test", () => {
     await page.locator('li:has-text("ListOfRecords")').click();
 
     /** selecting Table option from dropdown  */
-    const selectedDisplayAs = await page.locator(
-      'div[data-test-id="03e83bd975984c06d12c584cb59cc4ad"]',
-    );
+    const selectedDisplayAs = await page.locator('div[data-test-id="03e83bd975984c06d12c584cb59cc4ad"]');
     await selectedDisplayAs.click();
     await page.locator('li:has-text("Table")').click();
 

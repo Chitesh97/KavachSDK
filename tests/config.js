@@ -1,32 +1,32 @@
 // require('lighthouse/lighthouse-core/config/lr-desktop-config.js');
 
 const config = {
-  baseUrl: "http://localhost:3502",
+  baseUrl: 'http://localhost:3502',
   apps: {
     mediaCo: {
       rep: {
-        username: "rep@mediaco",
-        password: "pega",
+        username: 'rep@mediaco',
+        password: 'pega'
       },
       manager: {
-        username: "manager@mediaco",
-        password: "pega",
+        username: 'manager@mediaco',
+        password: 'pega'
       },
       tech: {
-        username: "tech@mediaco",
-        password: "pega",
-      },
+        username: 'tech@mediaco',
+        password: 'pega'
+      }
     },
     digv2: {
       user: {
-        username: "user.digv2",
-        password: "pega",
+        username: 'user.digv2',
+        password: 'pega'
       },
       localizedUser: {
-        username: "localization@DigV2",
-        password: "pega",
-      },
-    },
+        username: 'localization@DigV2',
+        password: 'pega'
+      }
+    }
   },
   testsetting: {
     // Enable network throttling(Default is false)
@@ -47,8 +47,8 @@ const config = {
     width: 1920,
     height: 1080,
     headless: true,
-    devtools: false,
-  },
+    devtools: false
+  }
 };
 
 exports.config = config;

@@ -1,9 +1,9 @@
 /** We're testing the visibility of tabs within the Case Summary area in the Case View here, more tests to be added in the future. */
 
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require('@playwright/test');
 
-const config = require("../../../config");
-const common = require("../../../common");
+const config = require('../../../config');
+const common = require('../../../common');
 
 // These values represent the visibility(as authored in the app) of the tabs
 const detailsTabVisible = false;
@@ -11,15 +11,9 @@ const caseHistoryTabVisible = true;
 
 test.beforeEach(common.launchPortal);
 
-test.describe("E2E test", () => {
-  test("should login, create case and run different test cases for Case View", async ({
-    page,
-  }) => {
-    await common.login(
-      config.config.apps.digv2.user.username,
-      config.config.apps.digv2.user.password,
-      page,
-    );
+test.describe('E2E test', () => {
+  test('should login, create case and run different test cases for Case View', async ({ page }) => {
+    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -30,21 +24,15 @@ test.describe("E2E test", () => {
     await expect(worklist).toBeVisible();
 
     /** Creating a Complex Fields case-type */
-    const complexFieldsCase = page.locator(
-      'div[role="button"]:has-text("Complex Fields")',
-    );
+    const complexFieldsCase = page.locator('div[role="button"]:has-text("Complex Fields")');
     await complexFieldsCase.click();
 
     /** Wait until newly created case loads */
     await expect(page.locator('div[id="CaseSummary"]')).toBeVisible();
 
     /** Getting the handle of tabs from the DOM */
-    const detailsTab = page.locator(
-      'button[role="tab"] >> span:has-text("Details")',
-    );
-    const caseHistoryTab = page.locator(
-      'button[role="tab"] >> span:has-text("Case History")',
-    );
+    const detailsTab = page.locator('button[role="tab"] >> span:has-text("Details")');
+    const caseHistoryTab = page.locator('button[role="tab"] >> span:has-text("Case History")');
 
     /** Visibility of both(basically more than one) tabs should be set to true in order for them to be displayed otherwise
      *  they won't be displayed and that is what we're testing here. */
@@ -60,14 +48,8 @@ test.describe("E2E test", () => {
     await page.locator('button:has-text("submit")').click();
   }, 10000);
 
-  test("should login, create case and run test cases for Cancel action on the Assignment", async ({
-    page,
-  }) => {
-    await common.login(
-      config.config.apps.digv2.user.username,
-      config.config.apps.digv2.user.password,
-      page,
-    );
+  test('should login, create case and run test cases for Cancel action on the Assignment', async ({ page }) => {
+    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -78,9 +60,7 @@ test.describe("E2E test", () => {
     await expect(worklist).toBeVisible();
 
     /** Creating a Complex Fields case-type */
-    const complexFieldsCase = page.locator(
-      'div[role="button"]:has-text("Complex Fields")',
-    );
+    const complexFieldsCase = page.locator('div[role="button"]:has-text("Complex Fields")');
     await complexFieldsCase.click();
 
     /** Wait until newly created case loads */

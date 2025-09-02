@@ -1,19 +1,13 @@
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require('@playwright/test');
 
-const config = require("../../../config");
-const common = require("../../../common");
+const config = require('../../../config');
+const common = require('../../../common');
 
 test.beforeEach(common.launchPortal);
 
-test.describe("E2E test", () => {
-  test("should login, create case and run different test cases Instructions text rendered as readonly Rich Text", async ({
-    page,
-  }) => {
-    await common.login(
-      config.config.apps.digv2.user.username,
-      config.config.apps.digv2.user.password,
-      page,
-    );
+test.describe('E2E test', () => {
+  test('should login, create case and run different test cases Instructions text rendered as readonly Rich Text', async ({ page }) => {
+    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -24,9 +18,7 @@ test.describe("E2E test", () => {
     await expect(worklist).toBeVisible();
 
     /** Creating a RichText Editor case-type */
-    const complexFieldsCase = page.locator(
-      'div[role="button"]:has-text("RichText Editor")',
-    );
+    const complexFieldsCase = page.locator('div[role="button"]:has-text("RichText Editor")');
     await complexFieldsCase.click();
 
     const instructionText = page.locator('div[id="instruction-text"]');
@@ -46,10 +38,10 @@ test.describe("E2E test", () => {
     const listItem = instructionText.locator('li:has-text("India")');
     await expect(listItem).toBeVisible();
 
-    const image = instructionText.locator("img");
+    const image = instructionText.locator('img');
     await expect(image).toBeDefined();
 
-    const table = instructionText.locator("table");
+    const table = instructionText.locator('table');
     await expect(table).toBeDefined();
 
     /** Submitting the case */

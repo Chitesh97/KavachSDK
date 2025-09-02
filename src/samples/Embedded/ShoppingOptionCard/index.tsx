@@ -1,128 +1,119 @@
-import makeStyles from "@mui/styles/makeStyles";
+import makeStyles from '@mui/styles/makeStyles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   swatchHeader: {
-    display: "flex",
-    flexDirection: "row",
-    backgroundColor: "#333000",
+    display: 'flex',
+    flexDirection: 'row',
+    backgroundColor: '#333000'
   },
   swatchPackage: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
-    width: "260px",
-    height: "70px",
-    backgroundColor: "#333000",
-    padding: "5px",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    width: '260px',
+    height: '70px',
+    backgroundColor: '#333000',
+    padding: '5px'
   },
   swatchPlay: {
-    letterSpacing: "normal",
-    color: "white",
-    fontSize: "25px",
+    letterSpacing: 'normal',
+    color: 'white',
+    fontSize: '25px'
   },
   swatchLevel: {
-    letterSpacing: "normal",
-    color: "white",
-    fontSize: "28px",
-    fontWeight: "bold",
+    letterSpacing: 'normal',
+    color: 'white',
+    fontSize: '28px',
+    fontWeight: 'bold'
   },
   swatchChannels: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-    letterSpacing: "normal",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    letterSpacing: 'normal',
+    alignItems: 'center',
     backgroundColor: theme.palette.primary.main,
-    width: "100px",
+    width: '100px'
   },
   swatchCount: {
-    letterSpacing: "normal",
-    color: "white",
-    fontSize: "40px",
-    fontWeight: "bold",
+    letterSpacing: 'normal',
+    color: 'white',
+    fontSize: '40px',
+    fontWeight: 'bold'
   },
   swatchLabel: {
-    letterSpacing: "normal",
-    color: "white",
-    fontSize: "17px",
+    letterSpacing: 'normal',
+    color: 'white',
+    fontSize: '17px'
   },
   swatchBody: {
-    letterSpacing: "normal",
-    border: "1px solid lightgray",
-    backgroundColor: "#fafafa",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    paddingBottom: "20px",
+    letterSpacing: 'normal',
+    border: '1px solid lightgray',
+    backgroundColor: '#fafafa',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingBottom: '20px'
   },
   swatchBanner: {
-    letterSpacing: "normal",
-    fontWeight: "bold",
-    fontSize: "15px",
-    padding: "5px",
+    letterSpacing: 'normal',
+    fontWeight: 'bold',
+    fontSize: '15px',
+    padding: '5px'
   },
   swatchPrice: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   swatchFromGroup: {
-    height: "90px",
+    height: '90px'
   },
   swatchFrom: {
     color: theme.palette.primary.main,
-    textAlign: "right",
+    textAlign: 'right'
   },
   swatchCurrency: {
-    letterSpacing: "normal",
+    letterSpacing: 'normal',
     color: theme.palette.primary.main,
-    fontSize: "30px",
-    fontWeight: "bold",
-    fontFamily: "Tahoma",
+    fontSize: '30px',
+    fontWeight: 'bold',
+    fontFamily: 'Tahoma'
   },
   swatchDollars: {
-    letterSpacing: "normal",
+    letterSpacing: 'normal',
     color: theme.palette.primary.main,
-    fontSize: "90px",
-    fontWeight: "bold",
-    fontFamily: "Tahoma",
+    fontSize: '90px',
+    fontWeight: 'bold',
+    fontFamily: 'Tahoma'
   },
   swatchCents: {
-    letterSpacing: "normal",
+    letterSpacing: 'normal',
     color: theme.palette.primary.main,
-    fontSize: "20px",
-    fontWeight: "bold",
-    fontFamily: "Tahoma",
+    fontSize: '20px',
+    fontWeight: 'bold',
+    fontFamily: 'Tahoma'
   },
   swatchMonthly: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column'
   },
   swatchShopButton: {
-    color: "white",
+    color: 'white',
     backgroundColor: theme.palette.warning.main,
-    fontSize: "25px",
-    fontWeight: "bold",
-    borderRadius: "25px",
-    border: "0px",
-    margin: "20px",
-    padding: "10px 30px",
-  },
+    fontSize: '25px',
+    fontWeight: 'bold',
+    borderRadius: '25px',
+    border: '0px',
+    margin: '20px',
+    padding: '10px 30px'
+  }
 }));
 
 export default function ShoppingOptionCard(props) {
   const classes = useStyles();
 
-  const {
-    play,
-    level,
-    channels,
-    channels_full: channelsFull,
-    banner,
-    price,
-    internetSpeed,
-    calling,
-  } = props;
+  const { play, level, channels, channels_full: channelsFull, banner, price, internetSpeed, calling } = props;
 
   return (
     <div>
@@ -141,9 +132,7 @@ export default function ShoppingOptionCard(props) {
         <ul>
           <li>{channelsFull} channels plus FREE HD</li>
           <li>Thousands of On Demand choices</li>
-          <li>
-            Watch on the {PCore.getEnvironmentInfo().getApplicationLabel()} App
-          </li>
+          <li>Watch on the {PCore.getEnvironmentInfo().getApplicationLabel()} App</li>
           <li>Up to {internetSpeed} Internet Speeds</li>
           <li>Unlimited nationwide calling {calling}</li>
         </ul>
@@ -154,23 +143,15 @@ export default function ShoppingOptionCard(props) {
             <div className={classes.swatchCurrency}>$</div>
           </div>
 
-          <div className={classes.swatchDollars}>
-            {price.substring(0, price.indexOf("."))}
-          </div>
+          <div className={classes.swatchDollars}>{price.substring(0, price.indexOf('.'))}</div>
           <div className={classes.swatchMonthly}>
-            <div className={classes.swatchCents}>
-              {price.substring(price.indexOf(".") + 1)}
-            </div>
+            <div className={classes.swatchCents}>{price.substring(price.indexOf('.') + 1)}</div>
             <div>for 12 months</div>
             <div>when bundled</div>
           </div>
         </div>
         <div>
-          <button
-            className={classes.swatchShopButton}
-            type="button"
-            onClick={() => props.onClick(level)}
-          >
+          <button className={classes.swatchShopButton} type='button' onClick={() => props.onClick(level)}>
             SHOP NOW
           </button>
         </div>

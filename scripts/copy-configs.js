@@ -1,15 +1,15 @@
-const fs = require("fs");
-const fg = require("fast-glob");
-const path = require("path");
+const fs = require('fs');
+const fg = require('fast-glob');
+const path = require('path');
 
 const fsp = fs.promises;
-const LOG_PRELUDE = "copy-config-ext:";
-const COMPONENTS_ROOT_SOURCE = "src/components";
-const COMPONENTS_CUSTOM_DIR = "custom";
-const COMPONENTS_OVERRIDE_DIR = "override";
-const COMPONENTS_ROOT_TARGET = "distAuthoring/components";
-const CONFIG_NAME = "config.json";
-const CONFIG_EXT_NAME = "config-ext.json";
+const LOG_PRELUDE = 'copy-config-ext:';
+const COMPONENTS_ROOT_SOURCE = 'src/components';
+const COMPONENTS_CUSTOM_DIR = 'custom';
+const COMPONENTS_OVERRIDE_DIR = 'override';
+const COMPONENTS_ROOT_TARGET = 'distAuthoring/components';
+const CONFIG_NAME = 'config.json';
+const CONFIG_EXT_NAME = 'config-ext.json';
 
 // copy-configs.js
 //  Only useful for SDKs running against Infinity 8.7.* or newer
@@ -30,9 +30,7 @@ function processConfigExtFiles() {
       createCompsRoot();
     })
     .catch(function (error) {
-      console.log(
-        `${LOG_PRELUDE} error deleting ${COMPONENTS_ROOT_TARGET}: ${error.message}`,
-      );
+      console.log(`${LOG_PRELUDE} error deleting ${COMPONENTS_ROOT_TARGET}: ${error.message}`);
     });
 }
 
@@ -46,9 +44,7 @@ function createCompsRoot() {
       gatherConfigExtFiles();
     })
     .catch(function (error) {
-      console.log(
-        `${LOG_PRELUDE} error creating ${COMPONENTS_ROOT_TARGET}: ${error.message}`,
-      );
+      console.log(`${LOG_PRELUDE} error creating ${COMPONENTS_ROOT_TARGET}: ${error.message}`);
     });
 }
 
@@ -61,21 +57,17 @@ function gatherConfigFiles() {
   // const COMPONENTS_OVERRIDE_DIR = "override";
 
   // Look for an process any Custom component configs
-  const jsFilesCustom = fg.sync(
-    `${COMPONENTS_ROOT_SOURCE}/${COMPONENTS_CUSTOM_DIR}/**/${CONFIG_NAME}`,
-  );
+  const jsFilesCustom = fg.sync(`${COMPONENTS_ROOT_SOURCE}/${COMPONENTS_CUSTOM_DIR}/**/${CONFIG_NAME}`);
 
-  jsFilesCustom.forEach((file) => {
+  jsFilesCustom.forEach(file => {
     // console.log(`${LOG_PRELUDE} found file: ${file}`);
     copyConfigRelatedFile(file);
   });
 
   // Look for an process any override component configs
-  const jsFilesOverride = fg.sync(
-    `${COMPONENTS_ROOT_SOURCE}/${COMPONENTS_OVERRIDE_DIR}/**/${CONFIG_NAME}`,
-  );
+  const jsFilesOverride = fg.sync(`${COMPONENTS_ROOT_SOURCE}/${COMPONENTS_OVERRIDE_DIR}/**/${CONFIG_NAME}`);
 
-  jsFilesOverride.forEach((file) => {
+  jsFilesOverride.forEach(file => {
     // console.log(`${LOG_PRELUDE} found file: ${file}`);
     copyConfigRelatedFile(file);
   });
@@ -84,7 +76,7 @@ function gatherConfigFiles() {
 function gatherConfigExtFiles() {
   const jsFiles = fg.sync(`${COMPONENTS_ROOT_SOURCE}/**/${CONFIG_EXT_NAME}`);
 
-  jsFiles.forEach((file) => {
+  jsFiles.forEach(file => {
     // console.log(`${LOG_PRELUDE} found file: ${file}`);
     copyConfigRelatedFile(file);
   });
@@ -104,7 +96,7 @@ function createDirectory(dir) {
 function copyConfigRelatedFile(srcFile) {
   // console.log(`${LOG_PRELUDE} start copy of ${srcFile}`);
   const fileInfo = path.parse(srcFile);
-  const pathParts = fileInfo["dir"].split("/");
+  const pathParts = fileInfo['dir'].split('/');
   // get the name of the component directory (which is the last entry in the pathParts array)
   const componentDirName = pathParts[pathParts.length - 1];
   const targetDir = `${COMPONENTS_ROOT_TARGET}/${componentDirName}`;

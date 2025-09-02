@@ -1,13 +1,13 @@
 /* eslint-disable react/no-array-index-key */
-import React, { createElement, isValidElement } from "react";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import makeStyles from "@mui/styles/makeStyles";
-import { format } from "@pega/react-sdk-components/lib/components/helpers/formatters/index";
+import React, { createElement, isValidElement } from 'react';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import { format } from '@pega/react-sdk-components/lib/components/helpers/formatters/index';
 
-import createPConnectComponent from "./react_pconnect";
+import createPConnectComponent from './react_pconnect';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     paddingRight: theme.spacing(1),
     paddingLeft: theme.spacing(1),
@@ -16,17 +16,17 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     marginLeft: theme.spacing(1),
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(1)
   },
   fieldLabel: {
-    display: "block",
+    display: 'block',
     fontWeight: 400,
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.secondary
   },
   fieldValue: {
     fontWeight: 400,
-    color: theme.palette.text.primary,
-  },
+    color: theme.palette.text.primary
+  }
 }));
 
 export default function DetailsFields(props) {
@@ -41,21 +41,13 @@ export default function DetailsFields(props) {
     const { label } = thePConn.getConfigProps();
     const configObj = thePConn?.getReferencedView();
     configObj.config.readOnly = true;
-    configObj.config.displayMode = "LABELS_LEFT";
+    configObj.config.displayMode = 'LABELS_LEFT';
     const propToUse = { ...thePConn.getInheritedProps() };
-    configObj.config.label =
-      theCompType === "reference" ? propToUse?.label : label;
+    configObj.config.label = theCompType === 'reference' ? propToUse?.label : label;
     fieldComponents.push({
       type: theCompType,
       label,
-      value: (
-        <React.Fragment key={index}>
-          {createElement(
-            createPConnectComponent(),
-            thePConn.getReferencedViewPConnect(),
-          )}
-        </React.Fragment>
-      ),
+      value: <React.Fragment key={index}>{createElement(createPConnectComponent(), thePConn.getReferencedViewPConnect())}</React.Fragment>
     });
   });
 
@@ -64,11 +56,7 @@ export default function DetailsFields(props) {
 
     return (
       <Grid item xs={6} key={keyVal}>
-        <Typography
-          variant="body2"
-          component="span"
-          className={`${classes.fieldLabel}`}
-        >
+        <Typography variant='body2' component='span' className={`${classes.fieldLabel}`}>
           {dispValue}
         </Typography>
       </Grid>
@@ -81,7 +69,7 @@ export default function DetailsFields(props) {
 
     // eslint-disable-next-line sonarjs/no-small-switch
     switch (type) {
-      case "date":
+      case 'date':
         formattedVal = format(value, type);
         break;
 
@@ -91,8 +79,8 @@ export default function DetailsFields(props) {
     }
 
     // Finally, if the value is undefined or an empty string, we want to display it as "---"
-    if (formattedVal === undefined || formattedVal === "") {
-      formattedVal = "---";
+    if (formattedVal === undefined || formattedVal === '') {
+      formattedVal = '---';
     }
 
     return formattedVal;
@@ -103,11 +91,7 @@ export default function DetailsFields(props) {
 
     return (
       <Grid item xs={6} key={keyVal}>
-        <Typography
-          variant="body2"
-          component="span"
-          className={classes.fieldValue}
-        >
+        <Typography variant='body2' component='span' className={classes.fieldValue}>
           {formattedValue}
         </Typography>
       </Grid>
@@ -117,11 +101,7 @@ export default function DetailsFields(props) {
   function getGridItem(field, keyVal) {
     return (
       <Grid item xs={12} key={keyVal}>
-        <Typography
-          variant="body2"
-          component="span"
-          className={classes.fieldValue}
-        >
+        <Typography variant='body2' component='span' className={classes.fieldValue}>
           {field?.value}
         </Typography>
       </Grid>
@@ -130,23 +110,18 @@ export default function DetailsFields(props) {
 
   function getGridItems() {
     return fieldComponents.map((field, index) => {
-      if (field?.type === "reference") {
+      if (field?.type === 'reference') {
         return field?.value;
       }
       if (isValidElement(field?.value)) {
         return (
-          <Grid
-            container
-            spacing={1}
-            style={{ padding: "4px 0px" }}
-            key={index}
-          >
+          <Grid container spacing={1} style={{ padding: '4px 0px' }} key={index}>
             {getGridItem(field, `${index}-item`)}
           </Grid>
         );
       }
       return (
-        <Grid container spacing={1} style={{ padding: "4px 0px" }} key={index}>
+        <Grid container spacing={1} style={{ padding: '4px 0px' }} key={index}>
           {getGridItemLabel(field, `${index}-label`)}
           {getGridItemValue(field, `${index}-value`)}
         </Grid>

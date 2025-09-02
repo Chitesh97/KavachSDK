@@ -1,9 +1,0 @@
-{
-  "componentKey": "TwoColumnPage",
-  "name": "TwoColumnPage",
-  "label": "Two column",
-  "description": "TwoColumn Page Template",
-  "type": "Template",
-  "subtype": "PAGE",
-  "properties": []
-}

@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { useEffect, useMemo, useState } from "react";
-import { Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { getSdkConfig } from "@pega/auth/lib/sdk-auth-manager";
+import { useEffect, useMemo, useState } from 'react';
+import { Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { getSdkConfig } from '@pega/auth/lib/sdk-auth-manager';
 
-import StoreContext from "@pega/react-sdk-components/lib/bridge/Context/StoreContext";
-import createPConnectComponent from "@pega/react-sdk-components/lib/bridge/react_pconnect";
+import StoreContext from '@pega/react-sdk-components/lib/bridge/Context/StoreContext';
+import createPConnectComponent from '@pega/react-sdk-components/lib/bridge/react_pconnect';
 
-import ShoppingOptionCard from "../ShoppingOptionCard";
-import ResolutionScreen from "../ResolutionScreen";
-import { shoppingOptions } from "../utils";
+import ShoppingOptionCard from '../ShoppingOptionCard';
+import ResolutionScreen from '../ResolutionScreen';
+import { shoppingOptions } from '../utils';
 
 function RootComponent(props) {
   const PegaConnectObj = createPConnectComponent();
@@ -26,56 +26,52 @@ function RootComponent(props) {
     return { store: PCore.getStore(), displayOnlyFA: true };
   }, [PCore.getStore()]);
 
-  return (
-    <StoreContext.Provider value={contextValue}>
-      {thePConnObj}
-    </StoreContext.Provider>
-  );
+  return <StoreContext.Provider value={contextValue}>{thePConnObj}</StoreContext.Provider>;
 }
 
 const useStyles = makeStyles(() => ({
   embedMainScreen: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%'
   },
   embedBanner: {
-    textAlign: "center",
-    width: "100%",
-    padding: "20px",
+    textAlign: 'center',
+    width: '100%',
+    padding: '20px'
   },
   embedShoppingOptions: {
-    display: "flex",
-    justifyContent: "space-evenly",
+    display: 'flex',
+    justifyContent: 'space-evenly'
   },
   pegaPartInfo: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row'
   },
   pegaPartPega: {
-    width: "50%",
-    display: "flex",
-    flexDirection: "column",
+    width: '50%',
+    display: 'flex',
+    flexDirection: 'column'
   },
   pegaPartText: {
-    paddingLeft: "50px",
+    paddingLeft: '50px'
   },
   pegaPartAccompaniment: {
-    width: "50%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    width: '50%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   pegaPartAccompanimentText: {
-    fontSize: "30px",
-    lineHeight: "40px",
-    padding: "20px 20px",
-    color: "darkslategray",
+    fontSize: '30px',
+    lineHeight: '40px',
+    padding: '20px 20px',
+    color: 'darkslategray'
   },
   pegaPartAccompanimentImage: {
-    width: "100%",
-    borderRadius: "10px",
-  },
+    width: '100%',
+    borderRadius: '10px'
+  }
 }));
 
 interface MainScreenProps {}
@@ -89,31 +85,19 @@ export default function MainScreen(props: MainScreenProps) {
 
   useEffect(() => {
     // Subscribe to the EVENT_CANCEL event to handle the assignment cancellation
-    PCore.getPubSubUtils().subscribe(
-      PCore.getConstants().PUB_SUB_EVENTS.EVENT_CANCEL,
-      () => cancelAssignment(),
-      "cancelAssignment",
-    );
+    PCore.getPubSubUtils().subscribe(PCore.getConstants().PUB_SUB_EVENTS.EVENT_CANCEL, () => cancelAssignment(), 'cancelAssignment');
 
     // Subscribe to the END_OF_ASSIGNMENT_PROCESSING event to handle assignment completion
     PCore.getPubSubUtils().subscribe(
-      PCore.getConstants().PUB_SUB_EVENTS.CASE_EVENTS
-        .END_OF_ASSIGNMENT_PROCESSING,
+      PCore.getConstants().PUB_SUB_EVENTS.CASE_EVENTS.END_OF_ASSIGNMENT_PROCESSING,
       () => assignmentFinished(),
-      "endOfAssignmentProcessing",
+      'endOfAssignmentProcessing'
     );
 
     return () => {
       // unsubscribe to the events
-      PCore.getPubSubUtils().unsubscribe(
-        PCore.getConstants().PUB_SUB_EVENTS.EVENT_CANCEL,
-        "cancelAssignment",
-      );
-      PCore.getPubSubUtils().unsubscribe(
-        PCore.getConstants().PUB_SUB_EVENTS.CASE_EVENTS
-          .END_OF_ASSIGNMENT_PROCESSING,
-        "endOfAssignmentProcessing",
-      );
+      PCore.getPubSubUtils().unsubscribe(PCore.getConstants().PUB_SUB_EVENTS.EVENT_CANCEL, 'cancelAssignment');
+      PCore.getPubSubUtils().unsubscribe(PCore.getConstants().PUB_SUB_EVENTS.CASE_EVENTS.END_OF_ASSIGNMENT_PROCESSING, 'endOfAssignmentProcessing');
     };
   });
 
@@ -145,20 +129,18 @@ export default function MainScreen(props: MainScreenProps) {
 
     // If mashupCaseType is null or undefined, get the first case type from the environment info
     if (!mashupCaseType) {
-      const caseTypes =
-        PCore?.getEnvironmentInfo()?.environmentInfoObject?.pyCaseTypeList;
-      mashupCaseType = (caseTypes?.[0] as any)
-        .pyWorkTypeImplementationClassName;
+      const caseTypes = PCore?.getEnvironmentInfo()?.environmentInfoObject?.pyCaseTypeList;
+      mashupCaseType = (caseTypes?.[0] as any).pyWorkTypeImplementationClassName;
     }
 
     // Create options object with default values
     const options: any = {
-      pageName: "pyEmbedAssignment",
-      startingFields: {},
+      pageName: 'pyEmbedAssignment',
+      startingFields: {}
     };
 
     // If mashupCaseType is 'DIXL-MediaCo-Work-NewService', add Package field to startingFields
-    if (mashupCaseType === "DIXL-MediaCo-Work-NewService") {
+    if (mashupCaseType === 'DIXL-MediaCo-Work-NewService') {
       options.startingFields.Package = sLevel;
     }
 
@@ -167,7 +149,7 @@ export default function MainScreen(props: MainScreenProps) {
       .createCase(mashupCaseType, PCore.getConstants().APP.APP, options)
       .then(() => {
         // eslint-disable-next-line no-console
-        console.log("createCase rendering is complete");
+        console.log('createCase rendering is complete');
       });
   };
 
@@ -175,21 +157,13 @@ export default function MainScreen(props: MainScreenProps) {
     const theBanner = (
       <div className={classes.embedMainScreen}>
         <div className={classes.embedBanner}>
-          <Typography variant="h5">
-            Combine TV, Internet, and Voice for the best deal
-          </Typography>
+          <Typography variant='h5'>Combine TV, Internet, and Voice for the best deal</Typography>
         </div>
       </div>
     );
 
     const theOptions = shoppingOptions.map((option, index) => {
-      return (
-        <ShoppingOptionCard
-          key={option.level}
-          {...shoppingOptions[index]}
-          onClick={onShopNow}
-        />
-      );
+      return <ShoppingOptionCard key={option.level} {...shoppingOptions[index]} onClick={onShopNow} />;
     });
 
     return (
@@ -206,20 +180,15 @@ export default function MainScreen(props: MainScreenProps) {
       {showResolution ? <ResolutionScreen /> : null}
       {showPega ? (
         <div className={classes.pegaPartInfo}>
-          <div className={classes.pegaPartPega} id="pega-part-of-page">
+          <div className={classes.pegaPartPega} id='pega-part-of-page'>
             <RootComponent {...props} />
             <br />
             <div className={classes.pegaPartText}> * - required fields</div>
           </div>
           <div className={classes.pegaPartAccompaniment}>
-            <div className={classes.pegaPartAccompanimentText}>
-              We need to gather a little information about you.
-            </div>
+            <div className={classes.pegaPartAccompanimentText}>We need to gather a little information about you.</div>
             <div>
-              <img
-                src="../../../assets/img/cableinfo.jpg"
-                className={classes.pegaPartAccompanimentImage}
-              />
+              <img src='../../../assets/img/cableinfo.jpg' className={classes.pegaPartAccompanimentImage} />
             </div>
           </div>
         </div>

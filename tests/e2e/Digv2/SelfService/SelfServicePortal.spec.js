@@ -1,18 +1,12 @@
-const { test, expect } = require("@playwright/test");
-const config = require("../../../config");
-const common = require("../../../common");
+const { test, expect } = require('@playwright/test');
+const config = require('../../../config');
+const common = require('../../../common');
 
 test.beforeEach(common.launchSelfServicePortal);
 
-test.describe("E2E test", () => {
-  test("should login and able to render self-service portal", async ({
-    page,
-  }) => {
-    await common.login(
-      config.config.apps.digv2.user.username,
-      config.config.apps.digv2.user.password,
-      page,
-    );
+test.describe('E2E test', () => {
+  test('should login and able to render self-service portal', async ({ page }) => {
+    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
 
     /** Testing app name presence */
     const appName = page.locator('button[id="appName"]:has-text("DigV2")');
@@ -39,28 +33,20 @@ test.describe("E2E test", () => {
     await expect(myWork).toBeVisible();
 
     /** Testing the Inline Dashboard navigation link */
-    await expect(
-      navLinks.locator('button:has-text("Inline Dashboard")'),
-    ).toBeVisible();
+    await expect(navLinks.locator('button:has-text("Inline Dashboard")')).toBeVisible();
 
     await navLinks.locator('button:has-text("Inline Dashboard")').click();
 
-    const inlineDashboard = await page.locator(
-      'h4:has-text("Inline Dashboard")',
-    );
+    const inlineDashboard = await page.locator('h4:has-text("Inline Dashboard")');
     await expect(inlineDashboard).toBeVisible();
 
-    const worklist1 = await page.locator(
-      'h6:has-text("Complex  Fields - List")',
-    );
+    const worklist1 = await page.locator('h6:has-text("Complex  Fields - List")');
     await expect(worklist1).toBeVisible();
 
     await page.locator('button[id="appName"]:has-text("DigV2")').click();
 
     /** Testing Quick links heading presence */
-    const quickLinksHeading = page.locator(
-      'h1[id="quick-links-heading"]:has-text("Quick links")',
-    );
+    const quickLinksHeading = page.locator('h1[id="quick-links-heading"]:has-text("Quick links")');
     await expect(quickLinksHeading).toBeVisible();
 
     /** Testing the case creation with Quick links */

@@ -55,6 +55,6 @@
 }
 
 /* Overriding CurrencyTextField style for fixing the alignment issue */
-[class*="MuiInputAdornment-positionStart"] {
+[class*='MuiInputAdornment-positionStart'] {
   margin-right: 0 !important;
 }

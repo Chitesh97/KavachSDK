@@ -1,11 +1,11 @@
 /* eslint-disable no-plusplus */
-import TextInput from "@pega/react-sdk-components/lib/components/field/TextInput";
-import AutoComplete from "@pega/react-sdk-components/lib/components/field/AutoComplete";
-import Email from "@pega/react-sdk-components/lib/components/field/Email";
-import Phone from "@pega/react-sdk-components/lib/components/field/Phone";
-import Operator from "@pega/react-sdk-components/lib/components/designSystemExtension/Operator";
-import Currency from "@pega/react-sdk-components/lib/components/field/Currency";
-import RadioButtons from "@pega/react-sdk-components/lib/components/field/RadioButtons";
+import TextInput from '@pega/react-sdk-components/lib/components/field/TextInput';
+import AutoComplete from '@pega/react-sdk-components/lib/components/field/AutoComplete';
+import Email from '@pega/react-sdk-components/lib/components/field/Email';
+import Phone from '@pega/react-sdk-components/lib/components/field/Phone';
+import Operator from '@pega/react-sdk-components/lib/components/designSystemExtension/Operator';
+import Currency from '@pega/react-sdk-components/lib/components/field/Currency';
+import RadioButtons from '@pega/react-sdk-components/lib/components/field/RadioButtons';
 
 // Making TextInput the default component
 let compType = TextInput;
@@ -14,24 +14,8 @@ let detailsIndex = 0;
 let detailsRegionIndex = 0;
 
 const createPConnectComponent = () => {
-  const formComponents = [
-    TextInput,
-    TextInput,
-    TextInput,
-    Phone,
-    AutoComplete,
-    Email,
-  ];
-  const detailsComponents = [
-    TextInput,
-    TextInput,
-    TextInput,
-    Email,
-    Phone,
-    Currency,
-    RadioButtons,
-    Operator,
-  ];
+  const formComponents = [TextInput, TextInput, TextInput, Phone, AutoComplete, Email];
+  const detailsComponents = [TextInput, TextInput, TextInput, Email, Phone, Currency, RadioButtons, Operator];
   const detailsRegionComponents = [
     TextInput,
     TextInput,
@@ -46,20 +30,20 @@ const createPConnectComponent = () => {
     Email,
     Phone,
     Currency,
-    Operator,
+    Operator
   ];
 
   let component;
 
   switch (compType) {
-    case "Details":
+    case 'Details':
       if (detailsIndex >= detailsComponents.length) {
         detailsIndex = 0;
       }
       component = detailsComponents[detailsIndex++];
       break;
 
-    case "DetailsRegion":
+    case 'DetailsRegion':
       if (detailsRegionIndex >= detailsRegionComponents.length) {
         detailsRegionIndex = 0;
       }

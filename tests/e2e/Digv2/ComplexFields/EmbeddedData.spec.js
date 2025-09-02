@@ -1,19 +1,13 @@
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require('@playwright/test');
 
-const config = require("../../../config");
-const common = require("../../../common");
+const config = require('../../../config');
+const common = require('../../../common');
 
 test.beforeEach(common.launchPortal);
 
-test.describe("E2E test", () => {
-  test("should login, create case and run different test cases for Embedded Data", async ({
-    page,
-  }) => {
-    await common.login(
-      config.config.apps.digv2.user.username,
-      config.config.apps.digv2.user.password,
-      page,
-    );
+test.describe('E2E test', () => {
+  test('should login, create case and run different test cases for Embedded Data', async ({ page }) => {
+    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -24,15 +18,11 @@ test.describe("E2E test", () => {
     await expect(worklist).toBeVisible();
 
     /** Creating a Complex Fields case-type */
-    const complexFieldsCase = page.locator(
-      'div[role="button"]:has-text("Complex Fields")',
-    );
+    const complexFieldsCase = page.locator('div[role="button"]:has-text("Complex Fields")');
     await complexFieldsCase.click();
 
     /** Selecting Embedded Data from the Category dropdown */
-    const selectedCategory = page.locator(
-      'div[data-test-id="76729937a5eb6b0fd88c42581161facd"]',
-    );
+    const selectedCategory = page.locator('div[data-test-id="76729937a5eb6b0fd88c42581161facd"]');
     await selectedCategory.click();
     await page.locator('li:has-text("EmbeddedData")').click();
 
@@ -42,39 +32,25 @@ test.describe("E2E test", () => {
 
     /** SingleRecord options type test */
 
-    let selectedOption = page.locator(
-      'div[data-test-id="c6be2b6191e6660291b6b0c92bd2f0df"]',
-    );
+    let selectedOption = page.locator('div[data-test-id="c6be2b6191e6660291b6b0c92bd2f0df"]');
     await selectedOption.click();
     await page.locator('li:has-text("SingleRecord")').click();
 
     /** Mode subcategory tests */
 
-    let selectedSubCategory = page.locator(
-      'div[data-test-id="9463d5f18a8924b3200b56efaad63bda"]',
-    );
+    let selectedSubCategory = page.locator('div[data-test-id="9463d5f18a8924b3200b56efaad63bda"]');
     await selectedSubCategory.click();
     await page.locator('li:has-text("Mode")').click();
 
     /** Editable mode type tests */
-    let selectedTestName = page.locator(
-      'div[data-test-id="6f64b45d01d11d8efd1693dfcb63b735"]',
-    );
+    let selectedTestName = page.locator('div[data-test-id="6f64b45d01d11d8efd1693dfcb63b735"]');
     await selectedTestName.click();
     await page.locator('li:has-text("Editable")').click();
 
-    await page
-      .locator('input[data-test-id="d61ebdd8a0c0cd57c22455e9f0918c65"]')
-      .fill("Main St");
-    await page
-      .locator('input[data-test-id="57d056ed0984166336b7879c2af3657f"]')
-      .fill("Cambridge");
-    await page
-      .locator('input[data-test-id="46a2a41cc6e552044816a2d04634545d"]')
-      .fill("MA");
-    await page
-      .locator('input[data-test-id="25f75488c91cb6c3bab92672e479619f"]')
-      .fill("02142");
+    await page.locator('input[data-test-id="d61ebdd8a0c0cd57c22455e9f0918c65"]').fill('Main St');
+    await page.locator('input[data-test-id="57d056ed0984166336b7879c2af3657f"]').fill('Cambridge');
+    await page.locator('input[data-test-id="46a2a41cc6e552044816a2d04634545d"]').fill('MA');
+    await page.locator('input[data-test-id="25f75488c91cb6c3bab92672e479619f"]').fill('02142');
 
     await page.locator('button:has-text("Next")').click();
 
@@ -89,47 +65,26 @@ test.describe("E2E test", () => {
     await page.locator('button:has-text("Previous")').click();
 
     /** Readonly mode type tests */
-    selectedTestName = page.locator(
-      'div[data-test-id="6f64b45d01d11d8efd1693dfcb63b735"]',
-    );
+    selectedTestName = page.locator('div[data-test-id="6f64b45d01d11d8efd1693dfcb63b735"]');
     await selectedTestName.click();
     await page.locator('li:has-text("Readonly")').click();
 
     /** Testing the existence of 'readonly' attribute on the fields and the values which were entered by Editable mode test */
-    const street = page.locator(
-      'input[data-test-id="d61ebdd8a0c0cd57c22455e9f0918c65"]',
-    );
+    const street = page.locator('input[data-test-id="d61ebdd8a0c0cd57c22455e9f0918c65"]');
     let attributes = await common.getAttributes(street);
-    expect(
-      attributes.includes("readonly") &&
-        (await street.inputValue()) === "Main St",
-    ).toBeTruthy();
+    expect(attributes.includes('readonly') && (await street.inputValue()) === 'Main St').toBeTruthy();
 
-    const city = page.locator(
-      'input[data-test-id="57d056ed0984166336b7879c2af3657f"]',
-    );
+    const city = page.locator('input[data-test-id="57d056ed0984166336b7879c2af3657f"]');
     attributes = await common.getAttributes(city);
-    expect(
-      attributes.includes("readonly") &&
-        (await city.inputValue()) === "Cambridge",
-    ).toBeTruthy();
+    expect(attributes.includes('readonly') && (await city.inputValue()) === 'Cambridge').toBeTruthy();
 
-    const state = page.locator(
-      'input[data-test-id="46a2a41cc6e552044816a2d04634545d"]',
-    );
+    const state = page.locator('input[data-test-id="46a2a41cc6e552044816a2d04634545d"]');
     attributes = await common.getAttributes(state);
-    expect(
-      attributes.includes("readonly") && (await state.inputValue()) === "MA",
-    ).toBeTruthy();
+    expect(attributes.includes('readonly') && (await state.inputValue()) === 'MA').toBeTruthy();
 
-    const postalCode = page.locator(
-      'input[data-test-id="25f75488c91cb6c3bab92672e479619f"]',
-    );
+    const postalCode = page.locator('input[data-test-id="25f75488c91cb6c3bab92672e479619f"]');
     attributes = await common.getAttributes(postalCode);
-    expect(
-      attributes.includes("readonly") &&
-        (await postalCode.inputValue()) === "02142",
-    ).toBeTruthy();
+    expect(attributes.includes('readonly') && (await postalCode.inputValue()) === '02142').toBeTruthy();
 
     await page.locator('button:has-text("Next")').click();
 
@@ -137,87 +92,57 @@ test.describe("E2E test", () => {
 
     /** ListOfRecord options type test */
 
-    selectedOption = page.locator(
-      'div[data-test-id="c6be2b6191e6660291b6b0c92bd2f0df"]',
-    );
+    selectedOption = page.locator('div[data-test-id="c6be2b6191e6660291b6b0c92bd2f0df"]');
     await selectedOption.click();
     await page.locator('li:has-text("ListOfRecords")').click();
 
     /** Table subcategory tests */
 
-    selectedSubCategory = page.locator(
-      'div[data-test-id="9463d5f18a8924b3200b56efaad63bda"]',
-    );
+    selectedSubCategory = page.locator('div[data-test-id="9463d5f18a8924b3200b56efaad63bda"]');
     await selectedSubCategory.click();
     await page.locator('li:has-text("Table")').click();
 
     /** Editable mode type tests */
-    selectedTestName = page.locator(
-      'div[data-test-id="6f64b45d01d11d8efd1693dfcb63b735"]',
-    );
+    selectedTestName = page.locator('div[data-test-id="6f64b45d01d11d8efd1693dfcb63b735"]');
     await selectedTestName.click();
     await page.locator('li:has-text("Editable")').click();
 
-    let selectEditMode = page.locator(
-      'div[data-test-id="80c1db3a7b228760228004b1a532c71e"]',
-    );
+    let selectEditMode = page.locator('div[data-test-id="80c1db3a7b228760228004b1a532c71e"]');
     await selectEditMode.click();
     await page.locator('li:has-text("Table rows")').click();
 
     const noRecordsMsg = page.locator('div[id="no-records"]');
-    await expect(
-      noRecordsMsg.locator('text="No records found."'),
-    ).toBeVisible();
+    await expect(noRecordsMsg.locator('text="No records found."')).toBeVisible();
 
     /** Creating row by clicking on `+Add` button */
     await page.locator('a:has-text("+ Add")').click();
 
     /** Entering values in the first Row */
-    await page
-      .locator('input[data-test-id="202003240938510823869"]')
-      .fill("Main St");
-    await page
-      .locator('input[data-test-id="202003240938510831291"]')
-      .fill("Cambridge");
-    await page
-      .locator('input[data-test-id="202003240938510831411"]')
-      .fill("MA");
-    await page
-      .locator('input[data-test-id="202003240938510832734"]')
-      .fill("02142");
+    await page.locator('input[data-test-id="202003240938510823869"]').fill('Main St');
+    await page.locator('input[data-test-id="202003240938510831291"]').fill('Cambridge');
+    await page.locator('input[data-test-id="202003240938510831411"]').fill('MA');
+    await page.locator('input[data-test-id="202003240938510832734"]').fill('02142');
 
-    let phone = page.locator(
-      'div[data-test-id="1f8261d17452a959e013666c5df45e07"]',
-    );
-    await phone.locator("button").click();
+    let phone = page.locator('div[data-test-id="1f8261d17452a959e013666c5df45e07"]');
+    await phone.locator('button').click();
     /** Selecting the country code */
-    await page.locator("text=United States+1 >> nth=0").click();
-    await common.enterPhoneNumber(phone, "6175551212");
+    await page.locator('text=United States+1 >> nth=0').click();
+    await common.enterPhoneNumber(phone, '6175551212');
 
     /** Creating second row by clicking on `+Add` button */
     await page.locator('a:has-text("+ Add")').click();
 
     /** Entering values in the second Row */
-    await page
-      .locator('input[data-test-id="202003240938510823869"] >> nth=1')
-      .fill("Global St");
-    await page
-      .locator('input[data-test-id="202003240938510831291"] >> nth=1')
-      .fill("California");
-    await page
-      .locator('input[data-test-id="202003240938510831411"] >> nth=1')
-      .fill("AK");
-    await page
-      .locator('input[data-test-id="202003240938510832734"] >> nth=1')
-      .fill("03142");
+    await page.locator('input[data-test-id="202003240938510823869"] >> nth=1').fill('Global St');
+    await page.locator('input[data-test-id="202003240938510831291"] >> nth=1').fill('California');
+    await page.locator('input[data-test-id="202003240938510831411"] >> nth=1').fill('AK');
+    await page.locator('input[data-test-id="202003240938510832734"] >> nth=1').fill('03142');
 
-    phone = page.locator(
-      'div[data-test-id="1f8261d17452a959e013666c5df45e07"] >> nth=1',
-    );
-    await phone.locator("button").click();
+    phone = page.locator('div[data-test-id="1f8261d17452a959e013666c5df45e07"] >> nth=1');
+    await phone.locator('button').click();
     /** Selecting the country code */
-    await page.locator("text=United States+1 >> nth=0").click();
-    await common.enterPhoneNumber(phone, "6175451212");
+    await page.locator('text=United States+1 >> nth=0').click();
+    await common.enterPhoneNumber(phone, '6175451212');
 
     await page.locator('button:has-text("Next")').click();
 
@@ -235,7 +160,7 @@ test.describe("E2E test", () => {
     await page.locator('li:has-text("Filter")').click();
     let modal = page.locator('div[role="dialog"]');
 
-    await modal.locator('input[type="text"]').fill("main");
+    await modal.locator('input[type="text"]').fill('main');
 
     await modal.locator('button:has-text("Submit")').click();
 
@@ -249,7 +174,7 @@ test.describe("E2E test", () => {
 
     await modal.locator('div[id="filter"]').click();
     await page.locator('li:has-text("Equals")').click();
-    await modal.locator('input[type="text"]').fill("Cambridge");
+    await modal.locator('input[type="text"]').fill('Cambridge');
 
     await modal.locator('button:has-text("Submit")').click();
 
@@ -259,19 +184,17 @@ test.describe("E2E test", () => {
 
     await modal.locator('div[id="filter"]').click();
     await page.locator('li:has-text("Starts with")').click();
-    await modal.locator('input[type="text"]').fill("0212");
+    await modal.locator('input[type="text"]').fill('0212');
 
     await modal.locator('button:has-text("Submit")').click();
 
-    await expect(
-      noRecordsMsg.locator('text="No records found."'),
-    ).toBeVisible();
+    await expect(noRecordsMsg.locator('text="No records found."')).toBeVisible();
 
     await assignment.locator('svg[id="menu-icon"] >> nth=3').click();
 
     await page.locator('li:has-text("Filter")').click();
 
-    await modal.locator('input[type="text"]').fill("");
+    await modal.locator('input[type="text"]').fill('');
     await modal.locator('button:has-text("Submit")').click();
 
     await expect(assignment.locator('td:has-text("main")')).toBeVisible();
@@ -283,28 +206,18 @@ test.describe("E2E test", () => {
     await page.locator('button:has-text("Next")').click();
 
     /** Testing the deleted row values which should n't be present */
-    await expect(
-      assignment.locator('input[value="Main St"] >> nth=1'),
-    ).toBeHidden();
-    await expect(
-      assignment.locator('input[value="Cambridge"] >> nth=1'),
-    ).toBeHidden();
+    await expect(assignment.locator('input[value="Main St"] >> nth=1')).toBeHidden();
+    await expect(assignment.locator('input[value="Cambridge"] >> nth=1')).toBeHidden();
     await expect(assignment.locator('input[value="MA"] >> nth=1')).toBeHidden();
-    await expect(
-      assignment.locator('input[value="02142"] >> nth=1'),
-    ).toBeHidden();
-    await expect(
-      assignment.locator('td:has-text("+16175551212") >> nth=1'),
-    ).toBeHidden();
+    await expect(assignment.locator('input[value="02142"] >> nth=1')).toBeHidden();
+    await expect(assignment.locator('td:has-text("+16175551212") >> nth=1')).toBeHidden();
 
     await page.locator('button:has-text("Previous")').click();
 
     await page.locator('button[id="delete-button"] >> nth=0').click();
 
     /** Table Edit Modal tests */
-    selectEditMode = page.locator(
-      'div[data-test-id="80c1db3a7b228760228004b1a532c71e"]',
-    );
+    selectEditMode = page.locator('div[data-test-id="80c1db3a7b228760228004b1a532c71e"]');
     await selectEditMode.click();
     await page.locator('li:has-text("Modal")').click();
 
@@ -317,32 +230,20 @@ test.describe("E2E test", () => {
     await expect(addRecordTitle).toBeVisible();
 
     /** Adding record to the Table in Modal */
-    await modal
-      .locator('input[data-test-id="202003240938510823869"]')
-      .fill("Main St");
-    await modal
-      .locator('input[data-test-id="202003240938510831291"]')
-      .fill("Cambridge");
-    await modal
-      .locator('input[data-test-id="202003240938510831411"]')
-      .fill("MA");
-    await modal
-      .locator('input[data-test-id="202003240938510832734"]')
-      .fill("02142");
+    await modal.locator('input[data-test-id="202003240938510823869"]').fill('Main St');
+    await modal.locator('input[data-test-id="202003240938510831291"]').fill('Cambridge');
+    await modal.locator('input[data-test-id="202003240938510831411"]').fill('MA');
+    await modal.locator('input[data-test-id="202003240938510832734"]').fill('02142');
 
-    phone = modal.locator(
-      'div[data-test-id="1f8261d17452a959e013666c5df45e07"]',
-    );
-    await phone.locator("button").click();
+    phone = modal.locator('div[data-test-id="1f8261d17452a959e013666c5df45e07"]');
+    await phone.locator('button').click();
     /** Selecting the country code */
-    await page.locator("text=United States+1 >> nth=0").click();
-    await common.enterPhoneNumber(phone, "6175551212");
+    await page.locator('text=United States+1 >> nth=0').click();
+    await common.enterPhoneNumber(phone, '6175551212');
 
-    const country = modal.locator(
-      'div[data-test-id="59716c97497eb9694541f7c3d37b1a4d"]',
-    );
+    const country = modal.locator('div[data-test-id="59716c97497eb9694541f7c3d37b1a4d"]');
     await country.click();
-    await page.getByRole("option", { name: "Switzerland" }).click();
+    await page.getByRole('option', { name: 'Switzerland' }).click();
 
     /** submitting the record */
     await modal.locator('button:has-text("submit")').click();
@@ -379,15 +280,11 @@ test.describe("E2E test", () => {
     await expect(editRecordTitle).toBeVisible();
 
     /** Editing the added row */
-    await modal.locator('input[data-test-id="202003240938510823869"]').fill("");
-    await modal
-      .locator('input[data-test-id="202003240938510823869"]')
-      .fill("Gandhi St");
+    await modal.locator('input[data-test-id="202003240938510823869"]').fill('');
+    await modal.locator('input[data-test-id="202003240938510823869"]').fill('Gandhi St');
 
-    await modal.locator('input[data-test-id="202003240938510831291"]').fill("");
-    await modal
-      .locator('input[data-test-id="202003240938510831291"]')
-      .fill("Dallas");
+    await modal.locator('input[data-test-id="202003240938510831291"]').fill('');
+    await modal.locator('input[data-test-id="202003240938510831291"]').fill('Dallas');
 
     await modal.locator('button:has-text("submit")').click();
 
@@ -408,9 +305,7 @@ test.describe("E2E test", () => {
     editMenu = await page.locator('div[id="table-edit-menu"]');
     await editMenu.locator('li:has-text("Delete")').click();
 
-    await expect(
-      noRecordsMsg.locator('text="No records found."'),
-    ).toBeVisible();
+    await expect(noRecordsMsg.locator('text="No records found."')).toBeVisible();
 
     await assignment.locator('button:has-text("Next")').click();
 
@@ -418,79 +313,49 @@ test.describe("E2E test", () => {
 
     /** FieldGroup subcategory tests */
 
-    selectedSubCategory = await page.locator(
-      'div[data-test-id="9463d5f18a8924b3200b56efaad63bda"]',
-    );
+    selectedSubCategory = await page.locator('div[data-test-id="9463d5f18a8924b3200b56efaad63bda"]');
     await selectedSubCategory.click();
     await page.locator('li:has-text("FieldGroup")').click();
 
     /** Editable mode type tests */
-    selectedTestName = await page.locator(
-      'div[data-test-id="6f64b45d01d11d8efd1693dfcb63b735"]',
-    );
+    selectedTestName = await page.locator('div[data-test-id="6f64b45d01d11d8efd1693dfcb63b735"]');
     await selectedTestName.click();
     await page.locator('li:has-text("Editable")').click();
 
     /** Entering values in the first Row */
-    await page
-      .locator('input[data-test-id="202003240938510823869"]')
-      .fill("Main St");
-    await page
-      .locator('input[data-test-id="202003240938510831291"]')
-      .fill("Cambridge");
-    await page
-      .locator('input[data-test-id="202003240938510831411"]')
-      .fill("MA");
-    await page
-      .locator('input[data-test-id="202003240938510832734"]')
-      .fill("02142");
+    await page.locator('input[data-test-id="202003240938510823869"]').fill('Main St');
+    await page.locator('input[data-test-id="202003240938510831291"]').fill('Cambridge');
+    await page.locator('input[data-test-id="202003240938510831411"]').fill('MA');
+    await page.locator('input[data-test-id="202003240938510832734"]').fill('02142');
 
-    phone = page.locator(
-      'div[data-test-id="1f8261d17452a959e013666c5df45e07"]',
-    );
-    await phone.locator("button").click();
+    phone = page.locator('div[data-test-id="1f8261d17452a959e013666c5df45e07"]');
+    await phone.locator('button').click();
     /** Selecting the country code */
-    await page.locator("text=United States+1 >> nth=0").click();
-    await common.enterPhoneNumber(phone, "6175551212");
+    await page.locator('text=United States+1 >> nth=0').click();
+    await common.enterPhoneNumber(phone, '6175551212');
 
-    let countryName = page.locator(
-      'div[data-test-id="59716c97497eb9694541f7c3d37b1a4d"]',
-    );
+    let countryName = page.locator('div[data-test-id="59716c97497eb9694541f7c3d37b1a4d"]');
     await countryName.click();
-    await page.getByRole("option", { name: "Switzerland" }).click();
+    await page.getByRole('option', { name: 'Switzerland' }).click();
 
     /** Creating another row by clicking on `+Add` button */
     await page.locator('a:has-text("+Add")').click();
 
     /** Entering values into the newly created row */
-    await page
-      .locator('input[data-test-id="202003240938510823869"] >> nth=1')
-      .fill("Global St");
-    await page
-      .locator('input[data-test-id="202003240938510831291"] >> nth=1')
-      .fill("California");
-    await page
-      .locator('input[data-test-id="202003240938510831411"] >> nth=1')
-      .fill("AK");
-    await page
-      .locator('input[data-test-id="202003240938510832734"] >> nth=1')
-      .fill("03142");
+    await page.locator('input[data-test-id="202003240938510823869"] >> nth=1').fill('Global St');
+    await page.locator('input[data-test-id="202003240938510831291"] >> nth=1').fill('California');
+    await page.locator('input[data-test-id="202003240938510831411"] >> nth=1').fill('AK');
+    await page.locator('input[data-test-id="202003240938510832734"] >> nth=1').fill('03142');
 
-    phone = page.locator(
-      'div[data-test-id="1f8261d17452a959e013666c5df45e07"] >> nth=1',
-    );
-    await phone.locator("button").click();
+    phone = page.locator('div[data-test-id="1f8261d17452a959e013666c5df45e07"] >> nth=1');
+    await phone.locator('button').click();
     /** Selecting the country code */
-    await page.locator("text=United States+1 >> nth=0").click();
-    await common.enterPhoneNumber(phone, "6175451212");
+    await page.locator('text=United States+1 >> nth=0').click();
+    await common.enterPhoneNumber(phone, '6175451212');
 
-    countryName = page.locator(
-      'div[data-test-id="59716c97497eb9694541f7c3d37b1a4d"] >> nth=1',
-    );
+    countryName = page.locator('div[data-test-id="59716c97497eb9694541f7c3d37b1a4d"] >> nth=1');
     await countryName.click();
-    await page
-      .getByRole("option", { name: "United States of America" })
-      .click();
+    await page.getByRole('option', { name: 'United States of America' }).click();
 
     await page.locator('button:has-text("Next")').click();
 
@@ -520,9 +385,7 @@ test.describe("E2E test", () => {
     await page.locator('button:has-text("Previous")').click();
 
     /** Readonly mode type tests */
-    selectedTestName = page.locator(
-      'div[data-test-id="6f64b45d01d11d8efd1693dfcb63b735"]',
-    );
+    selectedTestName = page.locator('div[data-test-id="6f64b45d01d11d8efd1693dfcb63b735"]');
     await selectedTestName.click();
     await page.locator('li:has-text("Readonly")').click();
 
@@ -531,33 +394,23 @@ test.describe("E2E test", () => {
     await expect(assignment.locator('span >> text="Cambridge"')).toBeVisible();
     await expect(assignment.locator('span >> text="MA"')).toBeVisible();
     await expect(assignment.locator('span >> text="02142"')).toBeVisible();
-    await expect(
-      assignment.locator('span >> text="+16175551212"'),
-    ).toBeVisible();
+    await expect(assignment.locator('span >> text="+16175551212"')).toBeVisible();
 
     /** Testing Sorting(both ascending and descending) */
-    selectedOption = page.locator(
-      'div[data-test-id="c6be2b6191e6660291b6b0c92bd2f0df"]',
-    );
+    selectedOption = page.locator('div[data-test-id="c6be2b6191e6660291b6b0c92bd2f0df"]');
     await selectedOption.click();
     await page.locator('li:has-text("ListOfRecords")').click();
 
-    selectedSubCategory = page.locator(
-      'div[data-test-id="9463d5f18a8924b3200b56efaad63bda"]',
-    );
+    selectedSubCategory = page.locator('div[data-test-id="9463d5f18a8924b3200b56efaad63bda"]');
     await selectedSubCategory.click();
     await page.locator('li:has-text("Table")').click();
 
     /** Editable mode type tests */
-    selectedTestName = page.locator(
-      'div[data-test-id="6f64b45d01d11d8efd1693dfcb63b735"]',
-    );
+    selectedTestName = page.locator('div[data-test-id="6f64b45d01d11d8efd1693dfcb63b735"]');
     await selectedTestName.click();
     await page.locator('li:has-text("Editable")').click();
 
-    selectEditMode = page.locator(
-      'div[data-test-id="80c1db3a7b228760228004b1a532c71e"]',
-    );
+    selectEditMode = page.locator('div[data-test-id="80c1db3a7b228760228004b1a532c71e"]');
     await selectEditMode.click();
     await page.locator('li:has-text("Table rows")').click();
 
@@ -565,48 +418,32 @@ test.describe("E2E test", () => {
     await page.locator('a:has-text("+ Add")').click();
 
     /** Entering values in the second Row */
-    await page
-      .locator('input[data-test-id="202003240938510823869"] >> nth=1')
-      .fill("Global St");
-    await page
-      .locator('input[data-test-id="202003240938510831291"] >> nth=1')
-      .fill("Cambridge");
-    await page
-      .locator('input[data-test-id="202003240938510831411"] >> nth=1')
-      .fill("MA");
-    await page
-      .locator('input[data-test-id="202003240938510832734"] >> nth=1')
-      .fill("02142");
+    await page.locator('input[data-test-id="202003240938510823869"] >> nth=1').fill('Global St');
+    await page.locator('input[data-test-id="202003240938510831291"] >> nth=1').fill('Cambridge');
+    await page.locator('input[data-test-id="202003240938510831411"] >> nth=1').fill('MA');
+    await page.locator('input[data-test-id="202003240938510832734"] >> nth=1').fill('02142');
 
     /** Creating row by clicking on `+Add` button */
     await page.locator('a:has-text("+ Add")').click();
 
     /** Entering values in the third Row */
-    await page
-      .locator('input[data-test-id="202003240938510823869"] >> nth=2')
-      .fill("");
-    await page
-      .locator('input[data-test-id="202003240938510831291"] >> nth=2')
-      .fill("Cambridge");
-    await page
-      .locator('input[data-test-id="202003240938510831411"] >> nth=2')
-      .fill("MA");
-    await page
-      .locator('input[data-test-id="202003240938510832734"] >> nth=2')
-      .fill("02142");
+    await page.locator('input[data-test-id="202003240938510823869"] >> nth=2').fill('');
+    await page.locator('input[data-test-id="202003240938510831291"] >> nth=2').fill('Cambridge');
+    await page.locator('input[data-test-id="202003240938510831411"] >> nth=2').fill('MA');
+    await page.locator('input[data-test-id="202003240938510832734"] >> nth=2').fill('02142');
 
     await page.locator('button:has-text("Next")').click();
 
     await page.locator('span:has-text("Street")').click();
 
     const table = page.locator('div[id="simple-table-manual"]');
-    let tableCell = table.locator("tbody >> tr >> td >> nth=0");
-    await expect(await tableCell.textContent()).toBe("---");
+    let tableCell = table.locator('tbody >> tr >> td >> nth=0');
+    await expect(await tableCell.textContent()).toBe('---');
 
     await page.locator('span:has-text("Street")').click();
 
-    tableCell = table.locator("tbody >> tr >> td >> nth=0");
-    await expect(await tableCell.textContent()).toBe("Main St");
+    tableCell = table.locator('tbody >> tr >> td >> nth=0');
+    await expect(await tableCell.textContent()).toBe('Main St');
 
     /** Submitting the case */
     await page.locator('button:has-text("submit")').click();
