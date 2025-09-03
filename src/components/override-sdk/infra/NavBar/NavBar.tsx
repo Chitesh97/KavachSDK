@@ -123,7 +123,7 @@ export default function NavBar(props: NavBarProps) {
 
   const { open, setOpen } = useNavBar();
   const [navPages, setNavPages] = useState(JSON.parse(JSON.stringify(pages)));
-  const [bShowCaseTypes, setBShowCaseTypes] = useState(true);
+  const [bShowCaseTypes, setBShowCaseTypes] = useState(false);
   const [bShowOperatorButtons, setBShowOperatorButtons] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const localeUtils = PCore.getLocaleUtils();
@@ -150,7 +150,6 @@ export default function NavBar(props: NavBarProps) {
         // eslint-disable-next-line no-console
         console.log(`${localizedVal('showPage completed', localeCategory)}`);
       });
-    console.log(navPages);
   }
 
   function navPanelCreateCaseType(sCaseType: string, sFlowType: string) {
@@ -243,12 +242,13 @@ export default function NavBar(props: NavBarProps) {
               key={caseType.pyLabel}
             >
               <ListItemIcon>
-                <WorkOutlineIcon fontSize='large' />
+                <WorkOutlineIcon fontSize='medium' />
               </ListItemIcon>
               <ListItemText primary={localeUtils.getLocaleValue(caseType.pyLabel, '', localeReference)} />
             </ListItemButton>
           ))}
         </List>
+        <Divider />
       </Collapse>
       <List>
         {navPages.map(page => (
