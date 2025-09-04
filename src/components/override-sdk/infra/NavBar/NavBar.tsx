@@ -272,7 +272,7 @@ export default function NavBar(props: NavBarProps) {
             }
           >
             <ListItemIcon id='person-icon'>
-              <PersonOutlineIcon fontSize='large' />
+              <PersonOutlineIcon fontSize='medium' />
             </ListItemIcon>
             <ListItemText primary={portalOperator} />
           </ListItem>
