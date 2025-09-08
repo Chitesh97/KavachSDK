@@ -265,7 +265,7 @@ export default function NavBar(props: NavBarProps) {
             onClick={navPanelOperatorButtonClick}
             secondaryAction={
               open ? (
-                <IconButton edge='end' onClick={navPanelOperatorButtonClick} size='large'>
+                <IconButton edge='end' onClick={navPanelOperatorButtonClick} size='medium'>
                   <ChevronRightIcon />
                 </IconButton>
               ) : null
