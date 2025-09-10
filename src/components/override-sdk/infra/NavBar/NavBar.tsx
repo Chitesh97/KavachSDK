@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, useColorScheme } from '@mui/material/styles';
 import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 
@@ -15,7 +15,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Typography
+  Typography,
 } from '@mui/material';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -38,6 +38,9 @@ import { logout } from '@pega/auth/lib/sdk-auth-manager';
 import { useNavBar } from '@pega/react-sdk-components/lib/components/helpers/reactContextHelpers';
 import { Utils } from '@pega/react-sdk-components/lib/components/helpers/utils';
 import type { PConnProps } from '@pega/react-sdk-components/lib/types/PConnProps';
+
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 import './NavBar.css';
 
@@ -129,6 +132,8 @@ export default function NavBar(props: NavBarProps) {
   const localeUtils = PCore.getLocaleUtils();
   const localeReference = pConn.getValue('.pyLocaleReference');
 
+  const { mode, setMode } = useColorScheme();
+
   const localizedVal = PCore.getLocaleUtils().getLocaleValue;
   const localeCategory = 'AppShell';
 
@@ -150,6 +155,10 @@ export default function NavBar(props: NavBarProps) {
         // eslint-disable-next-line no-console
         console.log(`${localizedVal('showPage completed', localeCategory)}`);
       });
+  }
+
+  function toggleTheme() {
+    return () => (mode === 'light' ? setMode('dark') : setMode('light'));
   }
 
   function navPanelCreateCaseType(sCaseType: string, sFlowType: string) {
@@ -259,7 +268,17 @@ export default function NavBar(props: NavBarProps) {
         ))}
       </List>
       <Divider />
+
       <List className='marginTopAuto'>
+        <ListItem>
+          <IconButton
+            aria-label="Set dark mode"
+            onClick={toggleTheme()}
+          >
+            {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+          </IconButton>
+        </ListItem>
+
         <>
           <ListItem
             onClick={navPanelOperatorButtonClick}

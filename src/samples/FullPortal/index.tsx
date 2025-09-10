@@ -151,7 +151,7 @@ export default function FullPortal() {
   ) : (
     <div id='pega-root'>
       <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme} defaultMode='dark'>
           <CssBaseline />
           {rootComponentProps && <RootComponent {...rootComponentProps} />}
         </ThemeProvider>

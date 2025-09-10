@@ -28,15 +28,15 @@ export const theme = createTheme({
   },
   palette: {
     primary: {
-      main: '#3f51b5',
-      light: '#7986cb',
-      dark: '#303f9f',
+      main: '#ff7043',
+      light: '#ffa270',
+      dark: '#c63f17',
       contrastText: '#ffffff',
     },
     secondary: {
-      main: '#f50057',
-      light: '#ff4081',
-      dark: '#c51162',
+      main: '#8e24aa',
+      light: '#c158dc',
+      dark: '#5c007a',
       contrastText: '#ffffff',
     }
   }
