@@ -248,8 +248,8 @@ export default function NavBar(props: NavBarProps) {
             </ListItemButton>
           ))}
         </List>
-        <Divider />
       </Collapse>
+      <Divider />
       <List>
         {navPages.map(page => (
           <ListItemButton onClick={() => navPanelButtonClick(page)} key={page.pyLabel}>
