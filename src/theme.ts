@@ -6,11 +6,14 @@ import { Theme } from '@mui/material/styles';
  * you need to augment the DefaultTheme (empty object) in @mui/styles with Theme from the core.
  */
 declare module '@mui/styles/defaultTheme' {
-  interface DefaultTheme extends Theme {}
+  interface DefaultTheme extends Theme { }
 }
 
 // eslint-disable-next-line import/prefer-default-export
 export const theme = createTheme({
+  colorSchemes: {
+    dark: true,
+  },
   components: {
     MuiTextField: {
       defaultProps: {
@@ -25,16 +28,16 @@ export const theme = createTheme({
   },
   palette: {
     primary: {
-      contrastText: '#fff',
-      dark: '#303f9f',
+      main: '#3f51b5',
       light: '#7986cb',
-      main: '#3f51b5'
+      dark: '#303f9f',
+      contrastText: '#ffffff',
     },
     secondary: {
-      contrastText: '#fff',
-      dark: '#c51162',
+      main: '#f50057',
       light: '#ff4081',
-      main: '#f50057'
+      dark: '#c51162',
+      contrastText: '#ffffff',
     }
   }
 });

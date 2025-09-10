@@ -17,7 +17,7 @@ const AppSelector = () => {
   return (
     <div>
       <Routes>
-        <Route path={`${baseURL}`} element={<Embedded />} />
+        <Route path={`${baseURL}`} element={<FullPortal />} />
         <Route path={`${baseURL}index.html`} element={<Embedded />} />
         <Route path={`${baseURL}embedded`} element={<Embedded />} />
         <Route path={`${baseURL}embedded.html`} element={<Embedded />} />

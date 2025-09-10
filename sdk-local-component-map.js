@@ -2,6 +2,7 @@
 
 import NavBar from './src/components/override-sdk/infra/NavBar/';
 import AppAnnouncement from './src/components/override-sdk/widget/AppAnnouncement/';
+import TextInput from './src/components/override-sdk/field/TextInput/';
 /* import end - DO NOT REMOVE */
 
 // localSdkComponentMap is the JSON object where we'll store the components that are
@@ -9,7 +10,8 @@ import AppAnnouncement from './src/components/override-sdk/widget/AppAnnouncemen
 
 const localSdkComponentMap = {
   NavBar,
-  AppAnnouncement
+  AppAnnouncement,
+  TextInput: TextInput
   /* map end - DO NOT REMOVE */
 };
 

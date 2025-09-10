@@ -52,11 +52,11 @@ export default function AppAnnouncement(props: AppAnnouncementProps) {
           );
         })}
       </CardContent>
-      <CardActions>
+      {whatsnewlink && <CardActions>
         <Button color='primary' onClick={handleClick} size='small'>
           See what&apos;s new
         </Button>
-      </CardActions>
+      </CardActions>}
     </Card>
   );
 }
