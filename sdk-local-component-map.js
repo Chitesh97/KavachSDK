@@ -3,6 +3,7 @@
 import NavBar from './src/components/override-sdk/infra/NavBar/';
 import AppAnnouncement from './src/components/override-sdk/widget/AppAnnouncement/';
 import TextInput from './src/components/override-sdk/field/TextInput/';
+import AppShell from './src/components/override-sdk/template/AppShell/';
 /* import end - DO NOT REMOVE */
 
 // localSdkComponentMap is the JSON object where we'll store the components that are
@@ -11,7 +12,8 @@ import TextInput from './src/components/override-sdk/field/TextInput/';
 const localSdkComponentMap = {
   NavBar,
   AppAnnouncement,
-  TextInput: TextInput
+  TextInput: TextInput,
+  AppShell: AppShell
   /* map end - DO NOT REMOVE */
 };
 

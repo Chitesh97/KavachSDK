@@ -34,8 +34,6 @@ export default function AppAnnouncement(props: AppAnnouncementProps) {
     window.open(whatsnewlink);
   };
 
-  console.log(props, details);
-
   return (
     <Card title='AppAnnouncement' className={classes.root}>
       <CardHeader title={<Typography variant='h6'>{header}</Typography>} />
