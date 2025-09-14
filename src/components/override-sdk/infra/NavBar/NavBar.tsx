@@ -270,14 +270,14 @@ export default function NavBar(props: NavBarProps) {
       <Divider />
 
       <List className='marginTopAuto'>
-        <ListItem>
-          <IconButton
+        <ListItemButton onClick={toggleTheme()}>
+          <ListItemIcon
             aria-label="Set dark mode"
-            onClick={toggleTheme()}
           >
             {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
-          </IconButton>
-        </ListItem>
+          </ListItemIcon>
+          <ListItemText> Toggle {mode === 'light' ? 'dark' : 'light'} mode </ListItemText>
+        </ListItemButton>
 
         <>
           <ListItem
